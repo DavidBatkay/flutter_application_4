@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_4/models/css_color.dart';
 
+// Colors taken from https://github.com/bp74/StageXL
 const cssColors = [
-  CssColor('red', Color(0xFFFF0000)),
   CssColor('AliceBlue', Color(0xFFF0F8FF)),
   CssColor('AntiqueWhite', Color(0xFFFAEBD7)),
   CssColor('Aqua', Color(0xFF00FFFF)),
