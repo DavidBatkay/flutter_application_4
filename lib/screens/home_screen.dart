@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_4/screens/colored_screen.dart';
+import 'package:flutter_application_4/utils/utils.dart';
 
 import '../common/strings.dart' as strings;
 import '../data/css_colors.dart';
@@ -16,7 +18,17 @@ class HomeScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: cssColors.length,
         itemBuilder: (BuildContext context, int index) {
-          return CssColorListItem(cssColor: cssColors[index]);
+          return CssColorListItem(
+            cssColor: cssColors[index],
+            onItemClick: () {
+              navigateTo(
+                context,
+                ColoredScreen(
+                  cssColor: cssColors[index],
+                ),
+              );
+            },
+          );
         },
       ),
     );
