@@ -9,14 +9,23 @@ class CssColorListItem extends StatelessWidget {
   final CssColor cssColor;
   @override
   Widget build(BuildContext context) {
+    // cache the list item text style to use in multiple places
+    final TextStyle itemStyle = TextStyle(color: contrastColor(cssColor.color));
+
     return Container(
       padding: EdgeInsets.all(16.0),
       color: cssColor.color,
       child: Row(
         mainAxisAlignment: .spaceBetween,
         children: [
-          Text(cssColor.colorName),
-          Text(toHex(cssColor.color)),
+          Text(
+            cssColor.colorName,
+            style: itemStyle,
+          ),
+          Text(
+            toHex(cssColor.color),
+            style: itemStyle,
+          ),
         ],
       ),
     );
