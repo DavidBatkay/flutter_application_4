@@ -1,8 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_4/common/consts.dart' as consts;
 
 import 'package:share_plus/share_plus.dart';
 
-import '../utils/color_utils.dart';
+import '../utils/color_utils.dart' as color_utils;
 import '../models/css_color.dart';
 
 class ColoredScreen extends StatelessWidget {
@@ -10,10 +13,29 @@ class ColoredScreen extends StatelessWidget {
 
   final CssColor cssColor;
 
-  void shareColor() {
-    SharePlus.instance.share(
-      ShareParams(text: 'check out my website https://example.com'),
+  void shareColor() async {
+    // Generate the color swatch image file name
+    final String hexCode = color_utils.toHex(
+      cssColor.color,
     );
+    final String fileName = consts.colorSwatchFileName(hexCode);
+
+    // Create the color swatch image file
+    Uint8List pngBytes = await color_utils.buildColorSwatch(
+      cssColor.color,
+      512,
+      512,
+    );
+    final XFile xFile = XFile.fromData(
+      pngBytes,
+      name: fileName,
+      mimeType: 'image/png',
+    );
+
+    // Summon the platform's share sheet to share the image file
+    await Share.shareXFiles([
+      xFile,
+    ], text: 'lol');
   }
 
   @override
@@ -33,16 +55,16 @@ class ColoredScreen extends StatelessWidget {
                   Theme.of(
                     context,
                   ).textTheme.displaySmall?.copyWith(
-                    color: contrastColor(cssColor.color),
+                    color: color_utils.contrastColor(cssColor.color),
                   ),
             ),
             Text(
-              toHex(cssColor.color),
+              color_utils.toHex(cssColor.color),
               style:
                   Theme.of(
                     context,
                   ).textTheme.titleSmall?.copyWith(
-                    color: contrastColor(cssColor.color),
+                    color: color_utils.contrastColor(cssColor.color),
                   ),
             ),
           ],
