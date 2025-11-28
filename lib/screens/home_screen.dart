@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   void shareAll() {
     final buffer = StringBuffer();
     for (final color in cssColors) {
-      buffer.write('${color.colorName} ${toHex(color.color)} ');
+      buffer.writeln('${color.colorName}: ${toHex(color.color)} ');
     }
     SharePlus.instance.share(
       ShareParams(text: buffer.toString()),
